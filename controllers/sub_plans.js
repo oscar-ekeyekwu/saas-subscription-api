@@ -11,8 +11,10 @@ exports.getPlans = (req, res, next) => {
     .catch(next);
 };
 
+//get a plan using id
 exports.getPlan = (req, res, next) => {
-  Plans.findOne({ _id: req.params.pla_id })
+
+  Plans.findOne({ _id: req.params.plan_id })
     .then((plan) => {
       return res.send({ message: 'Plan Retrieved Successfully', plan: plan });
     })

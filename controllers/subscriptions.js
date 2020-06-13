@@ -76,6 +76,7 @@ exports.deleteSubscription = (req, res, next) => {
     .catch(next);
 };
 
+//get subscriber(user) from the subscriptions db
 exports.subscriber = (req, res, next) => {
   const { sub_id } = req.params;
 
@@ -90,6 +91,7 @@ exports.subscriber = (req, res, next) => {
     .catch(next);
 };
 
+//get plan used for subscription
 exports.plan = (req, res, next) => {
   const { sub_id } = req.params;
 

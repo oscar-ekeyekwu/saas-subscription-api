@@ -13,10 +13,12 @@ const subscriptionSchema = new Schema(
     end_time: {
       type: Date,
     },
+    //reference the plan model via the plan_id
     plan: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Plans',
     },
+    //reference the user model via the user_id
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

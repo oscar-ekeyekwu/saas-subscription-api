@@ -4,6 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+//verify user via email signed on the token
 verifyUser = (req, res, next) => {
   let token = req.headers['token'];
   if (!token) {
@@ -28,6 +29,8 @@ verifyUser = (req, res, next) => {
     }
   });
 };
+
+//routes for plan module
 router.post('/plan', plansController.newPlan);
 router.get('/plan/all', plansController.getPlans);
 router.get('/plan/:plan_id', plansController.getPlan);
