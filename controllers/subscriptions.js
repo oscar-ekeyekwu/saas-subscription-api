@@ -1,21 +1,24 @@
 const Subscriptions = require('../models/subscriptions');
 
 exports.subscribe = (req, res, next) => {
-  const sub_name = req.body.sub_name,
+  const active = req.body.active,
     start_time = req.body.start_time,
     end_time = req.body.end_time;
-  const plan_id = req.url.plan_id,
-    user_id = req.url.user_id;
+
+  console.log(req.body);
+
+  const plan_id = req.query.plan_id,
+    user_id = req.query.user_id;
 
   const subscription = {
-    sub_name: sub_name,
-    start_time: start_time,
-    end_time: end_time,
+    active: active,
+    start_time: new Date(start_time),
+    end_time: new Date(end_time),
     plan: plan_id,
     user: user_id,
   };
 
-  if (!sub_name || !start_time || !end_time) {
+  if (!start_time || !end_time) {
     res.status(400).send('Provide Data for all Fields');
     return;
   } else {
@@ -82,6 +85,20 @@ exports.subscriber = (req, res, next) => {
       res.send({
         message: 'Subscriber retrieved Successfully',
         subscriber: subscriber,
+      });
+    })
+    .catch(next);
+};
+
+exports.plan = (req, res, next) => {
+  const { sub_id } = req.params;
+
+  Subscriptions.findById(sub_id)
+    .populate('plan')
+    .then((plan) => {
+      res.send({
+        message: 'Plan retrieved Successfully',
+        plan: plan,
       });
     })
     .catch(next);

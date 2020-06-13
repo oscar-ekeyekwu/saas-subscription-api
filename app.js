@@ -32,29 +32,27 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
 
 //initialize routes
-app.use('/v1', require('./routes/subscriptions'));
-app.use('/v1', require('./routes/sub_plans'));
-app.use('/v1', require('./routes/user'));
+app.use('/v1-node', require('./routes/subscriptions'));
+app.use('/v1-node', require('./routes/sub_plans'));
+app.use('/v1-node', require('./routes/user'));
 
 app.use((req, res) => {
-    res.send('welcome');
-  });
+  res.send('welcome');
+});
 
 //error handling middleware
 app.use((err, req, res, next) => {
   res.status(500).send({ error: err.message });
 });
 
-
-
-easyxml.configure({
-  singularizeChildren: true,
-  underscoreAttributes: true,
-  rootElement: 'response',
-  dateFormat: 'ISO',
-  indent: 2,
-  manifest: true,
-});
+// easyxml.configure({
+//   singularizeChildren: true,
+//   underscoreAttributes: true,
+//   rootElement: 'response',
+//   dateFormat: 'ISO',
+//   indent: 2,
+//   manifest: true,
+// });
 
 //   app.use((req, res, next)=> {
 //     res.sendData = function(obj) {
@@ -73,8 +71,7 @@ easyxml.configure({
 //     next();
 //   });
 
-
 //listen for request
 app.listen(process.env.PORT, function () {
-    console.log(`Listening for Request on PORT: ${process.env.PORT}`);
-  });
+  console.log(`Listening for Request on PORT: ${process.env.PORT}`);
+});

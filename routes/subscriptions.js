@@ -4,6 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+//jwt token verification middleware
 verifyUser = (req, res, next) => {
   let token = req.headers['token'];
   if (!token) {
@@ -28,31 +29,50 @@ verifyUser = (req, res, next) => {
     }
   });
 };
+
+//store a new subscription to db
 router.post('/subscribe', verifyUser, subscriptionController.subscribe);
+
+//get all subscriptions in the db
 router.get(
   '/subscriptions/all',
   verifyUser,
   subscriptionController.getSubscriptions
 );
+
+//get a particular subscription
 router.get(
   '/subscription/:sub_id',
   verifyUser,
   subscriptionController.getSubscription
 );
+
+//update subscription route
 router.put(
   '/subscription/:sub_id',
   verifyUser,
   subscriptionController.updateSubscription
 );
+
+//delete subscription route
 router.delete(
   '/subscription/:sub_id',
   verifyUser,
   subscriptionController.deleteSubscription
 );
 
+//get subscriber
 router.get(
-  '/subscription/subscriber/:sub_id', verifyUser,
+  '/subscription/subscriber/:sub_id',
+  verifyUser,
   subscriptionController.subscriber
+);
+
+//get plan of the subscription
+router.get(
+  '/subscription/plan/:sub_id',
+  verifyUser,
+  subscriptionController.plan
 );
 
 module.exports = router;
