@@ -1,7 +1,7 @@
 const Plans = require('../models/sub_plans');
 
 exports.getPlans = (req, res, next) => {
-  Plans.find({})
+  Plans.find()
     .then((plans) => {
       return res.send({
         message: 'Plans retrieved Successfully',
@@ -13,7 +13,6 @@ exports.getPlans = (req, res, next) => {
 
 //get a plan using id
 exports.getPlan = (req, res, next) => {
-
   Plans.findOne({ _id: req.params.plan_id })
     .then((plan) => {
       return res.send({ message: 'Plan Retrieved Successfully', plan: plan });
